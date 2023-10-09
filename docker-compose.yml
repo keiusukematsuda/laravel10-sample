@@ -5,3 +5,16 @@ services:
       dockerfile: ./docker/laravel/Dockerfile
     volumes:
       - ./sources:/data
+  nginx:
+    build:
+      dockerfile: ./docker/nginx/Dockerfile
+    environment:
+      - APP_HOST=${APP_HOST:-laravel}
+      - WEB_PORT=${APP_HOST:-80}
+      - WEB_HOST=${APP_HOST:-localhost}
+    ports:
+      - 8080:80
+    volumes:
+      - ./sources/public:/data/public
+    depends_on:
+      - laravel
