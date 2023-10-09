@@ -27,5 +27,16 @@ RUN apt-get update \
 # PHP設定をコピー
 COPY ./docker/laravel/php.ini /usr/local/etc/php/php.ini
 
+COPY ./sources /data
 
 WORKDIR /data
+
+RUN composer install \
+    && chown -R www-data:www-data ./ \
+    && chmod -R 777 storage bootstrap/cache \
+    && php artisan optimize:clear \
+    && php artisan optimize \
+    && php artisan cache:clear \
+    && php artisan config:clear \
+    && php artisan route:clear \
+    && php artisan view:clear
