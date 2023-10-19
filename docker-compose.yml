@@ -16,6 +16,8 @@ services:
       - DB_PASSWORD=${DB_PASSWORD:-secret}
     volumes:
       - ./sources:/data
+    depends_on:
+      - newrelic-php-daemon
   nginx:
     build:
       dockerfile: ./docker/nginx/Dockerfile
@@ -36,3 +38,6 @@ services:
       - 3306:3306
     volumes:
       - ./docker/mysql/db-store:/var/lib/mysql
+  newrelic-php-daemon:
+    image: newrelic/php-daemon
+    platform: linux/amd64   
