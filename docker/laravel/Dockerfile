@@ -18,6 +18,8 @@ RUN find /usr/local/etc -type f -name newrelic.ini \
     -exec sed -i \
     -e "s/REPLACE_WITH_REAL_KEY/${NEW_RELIC_LICENSE_KEY}/" \
     -e "s/newrelic.appname[[:space:]]=[[:space:]].*/newrelic.appname = \"${NEW_RELIC_APPNAME}\"/" \
+    -e 's/;newrelic.daemon.loglevel = "info"/newrelic.daemon.loglevel = "verbosedebug"/'  \
+    -e 's/;newrelic.loglevel = "info"/newrelic.loglevel = "verbosedebug"/'  \    
     -e '$anewrelic.daemon.address="newrelic-php-daemon:31339"' {} \;
 
 COPY --from=composer:2.5.8 /usr/bin/composer /usr/bin/composer
