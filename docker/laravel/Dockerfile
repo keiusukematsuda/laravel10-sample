@@ -8,11 +8,11 @@ ENV TZ=Asia/Tokyo \
     COMPOSER_ALLOW_SUPERUSER=1 \
     COMPOSER_HOME=/composer
 
-RUN curl -k -L https://download.newrelic.com/php_agent/archive/10.10.0.1/newrelic-php5-10.10.0.1-linux.tar.gz | tar -C /tmp -zx \
+RUN curl -k -L https://download.newrelic.com/php_agent/archive/${NEW_RELIC_AGENT_VERSION}/newrelic-php5-${NEW_RELIC_AGENT_VERSION}-linux.tar.gz | tar -C /var -zx \
     && export NR_INSTALL_USE_CP_NOT_LN=1 \
     && export NR_INSTALL_SILENT=1 \
-    && /tmp/newrelic-php5-10.10.0.1-linux/newrelic-install install \
-    && rm -rf /tmp/newrelic-php5-* /tmp/nrinstall*
+    && /var/newrelic-php5-${NEW_RELIC_AGENT_VERSION}-linux/newrelic-install install \
+    && rm -rf /var/newrelic-php5-* /var/nrinstall*
 
 RUN find /usr/local/etc -type f -name newrelic.ini \
     -exec sed -i \
