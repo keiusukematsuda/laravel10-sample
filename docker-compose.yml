@@ -30,7 +30,7 @@ services:
       - WEB_PORT=${APP_HOST:-80}
       - WEB_HOST=${APP_HOST:-localhost}
     ports:
-      - 8080:80
+      - 8880:80
     volumes:
       - ./sources/public:/data/public
     depends_on:
@@ -39,7 +39,7 @@ services:
     build:
       dockerfile: ./docker/mysql/Dockerfile
     ports:
-      - 3306:3306
+      - 13306:3306
     volumes:
       - ./docker/mysql/db-store:/var/lib/mysql
   newrelic-php-daemon:
